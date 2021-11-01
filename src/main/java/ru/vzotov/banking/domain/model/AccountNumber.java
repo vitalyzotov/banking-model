@@ -32,7 +32,10 @@ import java.util.Objects;
  * </ul>
  * Далее идет один знак с контрольной суммой (позволяет проверить, что все прочие цифры введены правильно).
  * Если интересно, посмотреть алгоритм расчета контрольного ключа можно посмотреть здесь:
- * http://www.consultant.ru/document/cons_doc_LAW_16053/08c1d0eacf880db80ef56f68c3469e2ea24502d7/
+ * <ul>
+ * <li><a href="http://www.consultant.ru/document/cons_doc_LAW_16053/08c1d0eacf880db80ef56f68c3469e2ea24502d7/">http://www.consultant.ru/document/cons_doc_LAW_16053/08c1d0eacf880db80ef56f68c3469e2ea24502d7/</a></li>
+ * <li><a href="https://docs.cntd.ru/document/9041717">https://docs.cntd.ru/document/9041717</a></li>
+ * </ul>
  * Примечательно, что в расчете контрольного ключа участвует и БИК (см. ниже).
  * Далее идет четыре цифры с кодом отделения (филиала) банка.
  * И наконец, последние 7 цифр - собственно номер счета. Он в разных банках формируется по разному.
@@ -40,6 +43,9 @@ import java.util.Objects;
  * В других банках номер состоит из персонального номера вкладчика и порядкового номера счета этого вкладчика.
  */
 public class AccountNumber implements ValueObject<AccountNumber> {
+
+    private static final char ZERO = '0';
+    private static final int CHECK_INDEX = 8; //zero based
 
     private String number;
 
@@ -52,6 +58,31 @@ public class AccountNumber implements ValueObject<AccountNumber> {
 
     public String number() {
         return number;
+    }
+
+    public void validate(BankId bankId) {
+        int[] data = new int[23];
+        int[] weights = {7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1};
+        int result = 0;
+        int orgNumber = bankId.orgNumber();
+
+
+        data[0] = orgNumber / 100;
+        data[1] = bankId.value().charAt(orgNumber == 0 ? 5 - 1 : 7) - ZERO;
+        data[2] = bankId.value().charAt(orgNumber == 0 ? 6 - 1 : 8) - ZERO;
+
+        char[] chars = this.number.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            data[3 + i] = chars[i] - ZERO;
+        }
+        data[CHECK_INDEX + 3] = 0; // сбрасываем контрольный разряд
+
+        for (int i = 0; i < data.length; i++) {
+            result += (data[i] * weights[i]) % 10;
+        }
+        result = ((result % 10) * 3) % 10;
+        if (number.charAt(CHECK_INDEX) - ZERO != result)
+            throw new IllegalArgumentException("Account number " + number + " is not valid for bank ID " + bankId);
     }
 
     @Override

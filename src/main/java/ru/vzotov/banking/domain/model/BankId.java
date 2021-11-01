@@ -44,6 +44,10 @@ public class BankId implements ValueObject<BankId> {
         return value;
     }
 
+    public int orgNumber() {
+        return Integer.parseInt(value.substring(6));
+    }
+
     @Override
     public boolean sameValueAs(BankId that) {
         return that != null && Objects.equals(value, that.value);
