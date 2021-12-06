@@ -34,32 +34,32 @@ public class Operation implements Entity<Operation>, BankRecord<Operation> {
     /**
      * Категория бюджета
      */
-    private BudgetCategory category;
+    private BudgetCategoryId category;
 
     private Money amount;
 
     private OperationType type;
 
-    private Account account;
+    private AccountNumber account;
 
     private String description;
 
     private String comment;
 
-    public Operation(OperationId operationId, LocalDate date, Money amount, OperationType type, Account account, String description) {
+    public Operation(OperationId operationId, LocalDate date, Money amount, OperationType type, AccountNumber account, String description) {
         this(operationId, null, null, date, amount, type, account, description, null, null);
     }
 
-    public Operation(OperationId operationId, LocalDate date, Money amount, OperationType type, Account account, String description, BudgetCategory category) {
+    public Operation(OperationId operationId, LocalDate date, Money amount, OperationType type, AccountNumber account, String description, BudgetCategoryId category) {
         this(operationId, null, null, date, amount, type, account, description, category, null);
     }
 
     public Operation(TransactionReference transactionReference,
                      LocalDate authorizationDate,
-                     LocalDate date, Money amount, OperationType type, Account account, String description,
-                     BudgetCategory category, String comment) {
+                     LocalDate date, Money amount, OperationType type, AccountNumber account, String description,
+                     BudgetCategoryId category, String comment) {
         this(
-                new OperationId(date, type, account.accountNumber(), amount, transactionReference),
+                new OperationId(date, type, account, amount, transactionReference),
                 transactionReference,
                 authorizationDate,
                 date,
@@ -75,8 +75,8 @@ public class Operation implements Entity<Operation>, BankRecord<Operation> {
     public Operation(OperationId operationId,
                      TransactionReference transactionReference,
                      LocalDate authorizationDate,
-                     LocalDate date, Money amount, OperationType type, Account account, String description,
-                     BudgetCategory category, String comment) {
+                     LocalDate date, Money amount, OperationType type, AccountNumber account, String description,
+                     BudgetCategoryId category, String comment) {
         Validate.notNull(operationId);
         Validate.notNull(date);
         Validate.notNull(amount);
@@ -116,7 +116,7 @@ public class Operation implements Entity<Operation>, BankRecord<Operation> {
     }
 
     @Override
-    public BudgetCategory category() {
+    public BudgetCategoryId category() {
         return category;
     }
 
@@ -131,7 +131,7 @@ public class Operation implements Entity<Operation>, BankRecord<Operation> {
     }
 
     @Override
-    public Account account() {
+    public AccountNumber account() {
         return account;
     }
 
@@ -163,7 +163,7 @@ public class Operation implements Entity<Operation>, BankRecord<Operation> {
         this.authorizationDate = authorizationDate;
     }
 
-    public void assignCategory(BudgetCategory category) {
+    public void assignCategory(BudgetCategoryId category) {
         this.category = category;
     }
 

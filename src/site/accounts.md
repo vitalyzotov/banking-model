@@ -6,6 +6,7 @@
 ```mermaid
 classDiagram
     direction LR
+
     class Account {
         - accountNumber: AccountNumber
         - owner: PersonId
@@ -14,11 +15,15 @@ classDiagram
     class AccountNumber
     class BankId
     class PersonId
+    class Person
+    class Bank
 
     Account "1" *-- "1" AccountNumber : identified by
     Account "*" -- "1" BankId
     Account "1" *-- "1" AccountAliases
     Account "*" -- "1" PersonId: owner
+    PersonId -- Person
+    BankId -- Bank
 ```
 
 </details>

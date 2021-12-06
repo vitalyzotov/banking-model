@@ -1,12 +1,10 @@
 package ru.vzotov.banking.domain.model;
 
 import org.apache.commons.lang.Validate;
-import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
 
 import java.util.Objects;
 
-@AggregateRoot
 public class Person implements Entity<Person> {
 
     private PersonId personId;

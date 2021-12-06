@@ -12,7 +12,7 @@ public class HoldOperationTest {
     @Test
     public void testMatching() {
 
-        Account account = new Account(new AccountNumber("40817810108290012345"), "Зарплатный счет", PersonId.nextId());
+        AccountNumber account = new AccountNumber("40817810108290012345");
 
         CardOperation cardOperation = new CardOperation(
                 new OperationId("test-operation-1"),

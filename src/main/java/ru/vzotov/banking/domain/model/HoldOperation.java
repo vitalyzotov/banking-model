@@ -35,7 +35,7 @@ public class HoldOperation implements Entity<HoldOperation>, BankRecord<HoldOper
     /**
      * Счет
      */
-    private Account account;
+    private AccountNumber account;
 
     /**
      * Описание операции
@@ -50,17 +50,17 @@ public class HoldOperation implements Entity<HoldOperation>, BankRecord<HoldOper
     /**
      * Категория бюджета
      */
-    private BudgetCategory category;
+    private BudgetCategoryId category;
 
     public HoldOperation(
             HoldId holdId,
-            Account account,
+            AccountNumber account,
             LocalDate date,
             Money amount,
             OperationType type,
             String description,
             String comment,
-            BudgetCategory category) {
+            BudgetCategoryId category) {
         Validate.notNull(holdId);
         Validate.notNull(account);
         Validate.notNull(date);
@@ -106,7 +106,7 @@ public class HoldOperation implements Entity<HoldOperation>, BankRecord<HoldOper
     }
 
     @Override
-    public Account account() {
+    public AccountNumber account() {
         return account;
     }
 
@@ -121,7 +121,7 @@ public class HoldOperation implements Entity<HoldOperation>, BankRecord<HoldOper
     }
 
     @Override
-    public BudgetCategory category() {
+    public BudgetCategoryId category() {
         return category;
     }
 

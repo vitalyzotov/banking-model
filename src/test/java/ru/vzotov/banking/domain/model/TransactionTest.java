@@ -47,7 +47,7 @@ public class TransactionTest {
                 LocalDate.of(2018, Month.JANUARY, 1),
                 Money.kopecks(10),
                 OperationType.WITHDRAW,
-                new Account(new AccountNumber("40817810099910123456"), PersonId.nextId()),
+                new AccountNumber("40817810099910123456"),
                 "descr1",
                 null,
                 null
@@ -59,7 +59,7 @@ public class TransactionTest {
                 LocalDate.of(2018, Month.JANUARY, 1),
                 Money.kopecks(10),
                 OperationType.DEPOSIT,
-                new Account(new AccountNumber("40817810108290123456"), PersonId.nextId()),
+                new AccountNumber("40817810108290123456"),
                 "descr2",
                 null,
                 null
@@ -71,7 +71,7 @@ public class TransactionTest {
                 LocalDate.of(2018, Month.JANUARY, 3),
                 Money.kopecks(500),
                 OperationType.DEPOSIT,
-                new Account(new AccountNumber("40817810108290123456"), PersonId.nextId()),
+                new AccountNumber("40817810108290123456"),
                 "descr3",
                 null,
                 null

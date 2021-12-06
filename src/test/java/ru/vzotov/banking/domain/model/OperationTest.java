@@ -18,13 +18,13 @@ public class OperationTest {
                 LocalDate.of(2018, 6, 29),
                 Money.rubles(1862.42d),
                 OperationType.WITHDRAW,
-                new Account(new AccountNumber("40817810108290123456"), PersonId.nextId()),
+                new AccountNumber("40817810108290123456"),
                 "11276718 RU MAGNIT MM ANTROPOS>SARA",
-                new BudgetCategory(BudgetCategoryId.of("Гипермаркет"), "Гипермаркет")
+                BudgetCategoryId.of("Гипермаркет")
         );
 
-        final BudgetCategory category2 = new BudgetCategory(BudgetCategoryId.of("Гипермаркет"), "Гипермаркет");
-        final BudgetCategory category3 = new BudgetCategory(BudgetCategoryId.of("Гипермаркет 2"), "Гипермаркет");
+        final BudgetCategoryId category2 = BudgetCategoryId.of("Гипермаркет");
+        final BudgetCategoryId category3 = BudgetCategoryId.of("Гипермаркет 2");
 
         Assert.assertEquals("categories with same id must be equal", operation.category(), category2);
         Assert.assertNotEquals("categories with different id must be different", operation.category(), category3);

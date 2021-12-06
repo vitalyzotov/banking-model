@@ -53,7 +53,7 @@ public class SimpleTransactionMatcher implements TransactionMatcher {
                     Iterator<Operation> iterator = set.iterator();
                     Operation primary = iterator.next();
                     Operation secondary = iterator.next();
-                    if (!primary.account().accountNumber().equals(secondary.account().accountNumber())) {
+                    if (!primary.account().equals(secondary.account())) {
                         result.add(new Transaction(primary.operationId(), secondary.operationId()));
                     }
                 } else if (ambiguous != null && set.size() > 2) {
