@@ -5,6 +5,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import ru.vzotov.ddd.shared.DomainEvent;
 
+import java.util.Objects;
+
 public class HoldOperationRemovedEvent implements DomainEvent<HoldOperationRemovedEvent> {
 
     private final HoldOperation hold;
@@ -37,9 +39,7 @@ public class HoldOperationRemovedEvent implements DomainEvent<HoldOperationRemov
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().
-                append(hold).
-                toHashCode();
+        return Objects.hash(hold);
     }
 
 }
