@@ -128,6 +128,15 @@ public class Account implements Entity<Account> {
         return Objects.hash(accountNumber);
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountNumber=" + accountNumber +
+                ", name='" + name + '\'' +
+                ", bankId=" + bankId +
+                '}';
+    }
+
     protected Account() {
         // for Hibernate
     }
