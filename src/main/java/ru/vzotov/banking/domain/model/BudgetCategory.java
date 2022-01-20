@@ -4,6 +4,7 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.PersonId;
 
 import java.util.Objects;
 
@@ -15,26 +16,30 @@ public class BudgetCategory implements Entity<BudgetCategory> {
 
     private BudgetCategoryId id;
 
+    private PersonId owner;
+
     private String name;
 
     private Integer color;
 
     private String icon;
 
-    public BudgetCategory(BudgetCategoryId id, String name) {
-        this(id, name, null, null);
+    public BudgetCategory(BudgetCategoryId id, PersonId owner, String name) {
+        this(id, owner, name, null, null);
     }
 
-    public BudgetCategory(BudgetCategoryId id, String name, Integer color) {
-        this(id, name, color, null);
+    public BudgetCategory(BudgetCategoryId id, PersonId owner, String name, Integer color) {
+        this(id, owner, name, color, null);
     }
 
-    public BudgetCategory(BudgetCategoryId id, String name, Integer color, String icon) {
+    public BudgetCategory(BudgetCategoryId id, PersonId owner, String name, Integer color, String icon) {
         Validate.notNull(id);
+        Validate.notNull(owner);
         Validate.notNull(name);
         Validate.notEmpty(name);
 
         this.id = id;
+        this.owner = owner;
         this.name = name;
         this.color = color;
         this.icon = icon;
@@ -42,6 +47,10 @@ public class BudgetCategory implements Entity<BudgetCategory> {
 
     public BudgetCategoryId id() {
         return id;
+    }
+
+    public PersonId owner() {
+        return owner;
     }
 
     public String name() {
