@@ -4,6 +4,7 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.PersonId;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -16,24 +17,32 @@ public class Card implements Entity<Card> {
 
     private CardNumber cardNumber;
 
+    private PersonId owner;
+
     private YearMonth validThru;
 
     private BankId issuer;
 
     private Set<AccountBinding> accounts = new HashSet<>();
 
-    public Card(CardNumber cardNumber, YearMonth validThru, BankId issuer) {
+    public Card(CardNumber cardNumber, PersonId owner, YearMonth validThru, BankId issuer) {
         Validate.notNull(cardNumber);
+        Validate.notNull(owner);
         Validate.notNull(validThru);
         Validate.notNull(issuer);
 
         this.cardNumber = cardNumber;
+        this.owner = owner;
         this.validThru = validThru;
         this.issuer = issuer;
     }
 
     public CardNumber cardNumber() {
         return cardNumber;
+    }
+
+    public PersonId owner() {
+        return owner;
     }
 
     public YearMonth validThru() {
