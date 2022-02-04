@@ -4,6 +4,7 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.Owned;
 import ru.vzotov.person.domain.model.PersonId;
 
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * Категория бюджета. Категории бюджета относятся к банковским операциям.
  */
 @AggregateRoot
-public class BudgetCategory implements Entity<BudgetCategory> {
+public class BudgetCategory implements Entity<BudgetCategory>, Owned {
 
     private BudgetCategoryId id;
 

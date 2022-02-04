@@ -4,6 +4,7 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.Owned;
 import ru.vzotov.person.domain.model.PersonId;
 
 import java.util.Currency;
@@ -13,7 +14,7 @@ import java.util.Objects;
  * Счет
  */
 @AggregateRoot
-public class Account implements Entity<Account> {
+public class Account implements Entity<Account>, Owned {
 
     /**
      * Номер счета
