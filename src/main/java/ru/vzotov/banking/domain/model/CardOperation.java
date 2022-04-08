@@ -9,33 +9,44 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Операция по банковской карте
+ * Bank card operation
  */
 @AggregateRoot
 public class CardOperation implements Entity<CardOperation> {
 
     /**
-     * Идентификатор, соответствует идентификатору операции
+     * Operation identifier
      */
     private OperationId operationId;
 
     /**
-     * Номер карты
+     * Card number
      */
     private CardNumber cardNumber;
 
     /**
-     * Информация о терминале
+     * POS terminal information
      */
     private PosTerminal terminal;
 
     /**
-     * Дата авторизации. Соответствует дате снятия блокировки средств и дате фактического списания средств со счета.
+     * Authorization date.
+     * <p>
+     *     When a merchant swipes a customer's credit card, the credit card terminal connects to the merchant's
+     *     acquirer, or credit card processor, which verifies that the customer's account is valid and that
+     *     sufficient funds are available to cover the transaction's cost.
+     *     At this step, the funds are "held" and deducted from the customer's credit limit
+     *     (or available bank balance, in the case of a debit card), but are not yet transferred to the merchant.
+     *     At the time of the merchant's choosing, the merchant instructs the credit card machine to submit
+     *     the finalized transactions to the acquirer in a "batch transfer," which begins the settlement process,
+     *     where the funds are transferred from the customers' accounts to the merchant's accounts.
+     * </p>
+     * This date is the date when the funds are actually transferred from the customers' accounts.
      */
     private LocalDate authDate;
 
     /**
-     * Дата покупки.
+     * Purchase date.
      */
     private LocalDate purchaseDate;
 

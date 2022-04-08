@@ -11,22 +11,22 @@ import java.util.Objects;
 public class Bank implements Entity<Bank> {
 
     /**
-     * БИК
+     * BIC - bank identifier
      */
     private BankId bankId;
 
     /**
-     * Наименование
+     * Name
      */
     private String name;
 
     /**
-     * Сокращённое фирменное наименование
+     * Short name
      */
     private String shortName;
 
     /**
-     * Полное фирменное наименование
+     * Long name
      */
     private String longName;
 

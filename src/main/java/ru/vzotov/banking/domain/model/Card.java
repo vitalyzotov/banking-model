@@ -9,6 +9,7 @@ import ru.vzotov.person.domain.model.PersonId;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,24 +17,39 @@ import java.util.Set;
 @AggregateRoot
 public class Card implements Entity<Card>, Owned {
 
+    /**
+     * Card number
+     */
     private CardNumber cardNumber;
 
+    /**
+     * Card holder
+     */
     private PersonId owner;
 
+    /**
+     * Valid thru
+     */
     private YearMonth validThru;
 
+    /**
+     * Card issuer
+     */
     private BankId issuer;
 
+    /**
+     * Bindings of card to accounts
+     */
     private Set<AccountBinding> accounts = new HashSet<>();
 
-    public Card(CardNumber cardNumber, PersonId owner, YearMonth validThru, BankId issuer) {
+    public Card(CardNumber cardNumber, PersonId holder, YearMonth validThru, BankId issuer) {
         Validate.notNull(cardNumber);
-        Validate.notNull(owner);
+        Validate.notNull(holder);
         Validate.notNull(validThru);
         Validate.notNull(issuer);
 
         this.cardNumber = cardNumber;
-        this.owner = owner;
+        this.owner = holder;
         this.validThru = validThru;
         this.issuer = issuer;
     }
@@ -52,6 +68,10 @@ public class Card implements Entity<Card>, Owned {
 
     public BankId issuer() {
         return issuer;
+    }
+
+    public Set<AccountBinding> accounts() {
+        return Collections.unmodifiableSet(accounts);
     }
 
     public boolean bindToAccount(AccountNumber accountNumber, LocalDate from, LocalDate to) {

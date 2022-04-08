@@ -6,7 +6,7 @@ import ru.vzotov.ddd.shared.ValueObject;
 import java.util.Objects;
 
 /**
- * База IIN https://github.com/iannuttall/binlist-data
+ * IIN https://github.com/iannuttall/binlist-data
  * <p>
  * Visa (incl. VPay)	13-19	4
  * #### #### #### #### (4-4-4-4)
