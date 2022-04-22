@@ -23,7 +23,11 @@ public class CardNumberTest {
         c = new CardNumber("415482++++++7000");
         assertThat(c.displayValue()).isEqualTo("4154 82++ ++++ 7000");
 
-        new CardNumber("4154822022035649");
+        c = new CardNumber("4154822022035649");
+        assertThat(c.isValid()).isTrue();
+
+        c = new CardNumber("4154822022035648");
+        assertThat(c.isValid()).isFalse();
 
         c = new CardNumber("4444333322221111");
         assertThat(c.displayValue()).isEqualTo("4444 3333 2222 1111");
@@ -101,15 +105,15 @@ public class CardNumberTest {
         new CardNumber("5454545454545454");
 
         // MIR
-        c = new CardNumber("2204941877211882");
+        c = new CardNumber("2201877357925316");
         assertThat(c.type()).isEqualTo(CardNumberType.MIR);
-        assertThat(c.displayValue()).isEqualTo("2204 9418 7721 1882");
+        assertThat(c.displayValue()).isEqualTo("2201 8773 5792 5316");
+        assertThat(c.isValid()).isTrue();
 
         new CardNumber("2201859609419381");
         new CardNumber("2202051661368286");
         CardNumber n1 = new CardNumber("2203737264072905");
         CardNumber n2 = new CardNumber("2200070089351218");
-
         assertThat(n1).isNotEqualTo(n2);
     }
 

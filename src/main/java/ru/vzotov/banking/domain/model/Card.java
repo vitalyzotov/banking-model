@@ -66,6 +66,10 @@ public class Card implements Entity<Card>, Owned {
         return validThru;
     }
 
+    public void setValidThru(YearMonth validThru) {
+        this.validThru = validThru;
+    }
+
     public BankId issuer() {
         return issuer;
     }
@@ -76,11 +80,20 @@ public class Card implements Entity<Card>, Owned {
 
     public boolean bindToAccount(AccountNumber accountNumber, LocalDate from, LocalDate to) {
         AccountBinding binding = new AccountBinding(accountNumber, from, to);
-        boolean mustBind = !accounts.contains(binding);
-        if (mustBind) {
+        boolean canBind = !accounts.contains(binding);
+        if (canBind) {
             accounts.add(binding);
         }
-        return mustBind;
+        return canBind;
+    }
+
+    public boolean unbindAccount(AccountNumber accountNumber, LocalDate from, LocalDate to) {
+        AccountBinding binding = new AccountBinding(accountNumber, from, to);
+        return accounts.remove(binding);
+    }
+
+    public void unbindAll() {
+        accounts.clear();
     }
 
     @Override

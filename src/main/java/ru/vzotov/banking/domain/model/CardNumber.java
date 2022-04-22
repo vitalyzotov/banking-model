@@ -3,6 +3,7 @@ package ru.vzotov.banking.domain.model;
 import org.apache.commons.lang.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -114,6 +115,36 @@ public class CardNumber implements ValueObject<CardNumber> {
             if (c1 != c2) return false;
         }
         return true;
+    }
+
+    /**
+     * Validates card number by Luhn algorithm
+     * @return true if valid; false otherwise
+     */
+    public boolean isValid() {
+        return isValidCardNumber(this.value);
+    }
+
+    /**
+     * Validates card number by Luhn algorithm
+     * @param value card number to validate
+     * @return true if valid; false otherwise
+     */
+    public static boolean isValidCardNumber(String value) {
+        int[] ints = new int[value.length()];
+        for (int i = 0; i < value.length(); i++) {
+            ints[i] = Integer.parseInt(value.substring(i, i + 1));
+        }
+        for (int i = ints.length - 2; i >= 0; i = i - 2) {
+            int j = ints[i];
+            j = j * 2;
+            if (j > 9) {
+                j = j % 10 + 1;
+            }
+            ints[i] = j;
+        }
+        int sum = Arrays.stream(ints).sum();
+        return sum % 10 == 0;
     }
 
     @Override
