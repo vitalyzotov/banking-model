@@ -39,6 +39,7 @@ public class BankId implements ValueObject<BankId> {
     public static final BankId TINKOFF = new BankId("044525974");
     public static final BankId ALFABANK = new BankId("044525593");
     public static final BankId GAZPROMBANK = new BankId("044525823");
+    public static final BankId OZON = new BankId("044525127");
 
     private String value;
 

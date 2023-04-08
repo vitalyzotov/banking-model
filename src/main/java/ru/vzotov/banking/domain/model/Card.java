@@ -79,6 +79,7 @@ public class Card implements Entity<Card>, Owned {
     }
 
     public boolean bindToAccount(AccountNumber accountNumber, LocalDate from, LocalDate to) {
+        //todo: check that bindings are not ambiguous
         AccountBinding binding = new AccountBinding(accountNumber, from, to);
         boolean canBind = !accounts.contains(binding);
         if (canBind) {
