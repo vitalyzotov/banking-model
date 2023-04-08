@@ -3,10 +3,12 @@ package ru.vzotov.banking.domain.model;
 import org.apache.commons.lang.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 
+import java.util.Currency;
 import java.util.Objects;
 
 /**
- * Номер счета (20 цифр)
+ * Account number (20 digits)
+ *
  * https://www.banki.ru/blog/BAY/8904.php
  * <p>
  * Номер счета включает двадцать знаков. Например: 40817810570000123456
@@ -56,11 +58,29 @@ public class AccountNumber implements ValueObject<AccountNumber> {
         this.number = number;
     }
 
+    public static AccountNumber create(AccountNumberType type, Currency currency, BankId bankId, int branchCode, int localAccountNumber) {
+        Validate.notNull(type);
+        Validate.notNull(currency);
+        Validate.notNull(bankId);
+        Validate.isTrue(branchCode >= 0 && branchCode <= 9999);
+        Validate.isTrue(localAccountNumber >= 0 && localAccountNumber <= 9999999);
+        final char[] chars = String.format("%05d%03d%01d%04d%07d", type.value(), currency.getNumericCode(), 0, branchCode, localAccountNumber).toCharArray();
+        final int checksum = checksum(chars, bankId);
+        chars[CHECK_INDEX] = (char) (checksum + ZERO);
+        return new AccountNumber(String.valueOf(chars));
+    }
+
     public String number() {
         return number;
     }
 
     public void validate(BankId bankId) {
+        int result = checksum(this.number.toCharArray(), bankId);
+        if (number.charAt(CHECK_INDEX) - ZERO != result)
+            throw new IllegalArgumentException("Account number " + number + " is not valid for bank ID " + bankId);
+    }
+
+    private static int checksum(char[] chars, BankId bankId) {
         int[] data = new int[23];
         int[] weights = {7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1};
         int result = 0;
@@ -71,18 +91,16 @@ public class AccountNumber implements ValueObject<AccountNumber> {
         data[1] = bankId.value().charAt(orgNumber == 0 ? 5 - 1 : 7) - ZERO;
         data[2] = bankId.value().charAt(orgNumber == 0 ? 6 - 1 : 8) - ZERO;
 
-        char[] chars = this.number.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             data[3 + i] = chars[i] - ZERO;
         }
-        data[CHECK_INDEX + 3] = 0; // сбрасываем контрольный разряд
+        data[CHECK_INDEX + 3] = 0; // reset the check digit
 
         for (int i = 0; i < data.length; i++) {
             result += (data[i] * weights[i]) % 10;
         }
         result = ((result % 10) * 3) % 10;
-        if (number.charAt(CHECK_INDEX) - ZERO != result)
-            throw new IllegalArgumentException("Account number " + number + " is not valid for bank ID " + bankId);
+        return result;
     }
 
     @Override
