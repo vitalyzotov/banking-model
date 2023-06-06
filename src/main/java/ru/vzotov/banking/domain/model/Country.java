@@ -1,7 +1,7 @@
 package ru.vzotov.banking.domain.model;
 
 import com.neovisionaries.i18n.CountryCode;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class Country implements ValueObject<Country> {
 
         CountryCode c = CountryCode.getByCode(code, false);
         if (c == null && code.length() > 0 && Character.isDigit(code.charAt(0))) {
-            c = CountryCode.getByCode(Integer.valueOf(code));
+            c = CountryCode.getByCode(Integer.parseInt(code));
         }
 
         Validate.notNull(c);

@@ -1,22 +1,22 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class BankReportTest {
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new BankReport(null);
-        })).as("Should not accept null arguments").isInstanceOf(Exception.class);
+        }).as("Should not accept null arguments").isInstanceOf(Exception.class);
 
         BankReport address = new BankReport(Collections.emptyList());
-        assertThat(address.operations()).isEmpty();
+        assertThat(address).extracting(BankReport::operations)
+                .asList().isEmpty();
     }
 
 }

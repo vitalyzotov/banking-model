@@ -1,21 +1,20 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CardNumberTest {
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new CardNumber(null);
-        })).as("Should not accept null arguments").isInstanceOf(Exception.class);
+        }).as("Should not accept null arguments").isInstanceOf(Exception.class);
 
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new CardNumber("415482202203ABCD");
-        })).as("Should not accept non-numeric chars").isInstanceOf(Exception.class);
+        }).as("Should not accept non-numeric chars").isInstanceOf(Exception.class);
 
         CardNumber c;
 

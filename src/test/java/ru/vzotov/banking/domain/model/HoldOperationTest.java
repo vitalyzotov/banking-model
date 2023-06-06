@@ -1,6 +1,6 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.domain.model.Money;
 
 import java.time.LocalDate;

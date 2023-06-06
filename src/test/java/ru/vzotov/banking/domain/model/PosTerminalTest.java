@@ -1,37 +1,32 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.Assertions.fail;
 
-@RunWith(JUnit4.class)
 public class PosTerminalTest {
 
     @Test
     public void testCountry() {
         assertThatThrownBy(() -> {
             new Country("KRASNODAR");
-        }).isInstanceOf(IllegalArgumentException.class);
+        }).isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new PosTerminal(null, null, null);
-        })).as("Should not accept null arguments").isInstanceOf(IllegalArgumentException.class);
+        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new PosTerminal(null, null, null, null);
-        })).as("Should not accept null arguments").isInstanceOf(IllegalArgumentException.class);
+        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new PosTerminal(null, null, null, null, null);
-        })).as("Should not accept null arguments").isInstanceOf(IllegalArgumentException.class);
+        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
         //allow some null arguments
         new PosTerminal(new PosTerminalId("11276718"), new Country("RUS"), null, null, new Merchant("MAGNIT MM ANT"));

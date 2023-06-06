@@ -1,18 +1,18 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.person.domain.model.PersonId;
 
-@RunWith(JUnit4.class)
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class AccountTest {
 
     @Test
     public void testConstruct() {
         final Account account1 = new Account(new AccountNumber("40817810108290123456"), PersonId.nextId());
         final Account account2 = new Account(new AccountNumber("40817810108290123456"), "Зарплатный счет", PersonId.nextId());
-        Assert.assertEquals("accounts must be equal", account1, account2);
+
+        assertThat(account1)
+                .as("accounts must be equal").isEqualTo(account2);
     }
 }
