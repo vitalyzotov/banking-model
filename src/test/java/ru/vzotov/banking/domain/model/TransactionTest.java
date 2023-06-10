@@ -1,8 +1,6 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.domain.model.Money;
 
 import java.time.LocalDate;
@@ -12,7 +10,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(JUnit4.class)
 public class TransactionTest {
 
     @Test

@@ -1,15 +1,12 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 import java.util.Currency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-@RunWith(JUnit4.class)
 public class AccountNumberTest {
 
     @Test

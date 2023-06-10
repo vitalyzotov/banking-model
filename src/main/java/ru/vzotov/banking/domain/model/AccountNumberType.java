@@ -1,6 +1,6 @@
 package ru.vzotov.banking.domain.model;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Положение Банка России от 27.02.2017 N 579-П (ред. от 25.04.2022) "О Плане счетов бухгалтерского учета
  * для кредитных организаций и порядке его применения" (Зарегистрировано в Минюсте России 20.03.2017 N 46021)
- * http://www.consultant.ru/document/cons_doc_LAW_213488/
+ * <a href="https://www.consultant.ru/document/cons_doc_LAW_213488/">https://www.consultant.ru/document/cons_doc_LAW_213488/</a>
  */
 public class AccountNumberType implements ValueObject<AccountNumberType> {
 

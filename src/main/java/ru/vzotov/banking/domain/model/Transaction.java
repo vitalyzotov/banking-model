@@ -1,6 +1,7 @@
 package ru.vzotov.banking.domain.model;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
 
@@ -19,6 +20,8 @@ public class Transaction implements Entity<Transaction> {
     private OperationId secondaryOperation;
 
     public Transaction(OperationId primaryOperation, OperationId secondaryOperation) {
+        Validate.notNull(primaryOperation);
+        Validate.notNull(secondaryOperation);
         this.primaryOperation = primaryOperation;
         this.secondaryOperation = secondaryOperation;
     }
@@ -48,13 +51,17 @@ public class Transaction implements Entity<Transaction> {
 
     @Override
     public boolean sameIdentityAs(Transaction other) {
-        return other != null && (new EqualsBuilder()
-                .append(primaryOperation, other.primaryOperation)
-                .append(secondaryOperation, other.secondaryOperation)
-                .isEquals()) || (new EqualsBuilder()
-                .append(primaryOperation, other.secondaryOperation)
-                .append(secondaryOperation, other.primaryOperation)
-                .isEquals());
+        return other != null && (
+                new EqualsBuilder()
+                        .append(primaryOperation, other.primaryOperation)
+                        .append(secondaryOperation, other.secondaryOperation)
+                        .isEquals()
+                        ||
+                        new EqualsBuilder()
+                                .append(primaryOperation, other.secondaryOperation)
+                                .append(secondaryOperation, other.primaryOperation)
+                                .isEquals()
+        );
     }
 
     @Override

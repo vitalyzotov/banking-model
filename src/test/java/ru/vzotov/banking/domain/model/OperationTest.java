@@ -1,14 +1,12 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.domain.model.Money;
 
 import java.time.LocalDate;
 
-@RunWith(JUnit4.class)
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class OperationTest {
 
     @Test
@@ -26,7 +24,9 @@ public class OperationTest {
         final BudgetCategoryId category2 = BudgetCategoryId.of("Гипермаркет");
         final BudgetCategoryId category3 = BudgetCategoryId.of("Гипермаркет 2");
 
-        Assert.assertEquals("categories with same id must be equal", operation.category(), category2);
-        Assert.assertNotEquals("categories with different id must be different", operation.category(), category3);
+        assertThat(operation.category())
+                .as("categories with same id must be equal").isEqualTo(category2);
+        assertThat(operation.category())
+                .as("categories with different id must be different").isNotEqualTo(category3);
     }
 }

@@ -71,20 +71,17 @@ public enum CardNumberType {
     BANKCARD("Bankcard", 16, 16, CardNumberSpacing.SPACING_4_4_4_4, "5610", "560221", "560222", "560223", "560224", "560225"),
     UNKNOWN("Unknown", 12, 19, CardNumberSpacing.SPACING_4_4_4_4);
 
-    private String name;
-    private int minLength;
-    private int maxLength;
-    private String[] iin;
-    private int[] spacing;
+    private final String name;
+    private final int minLength;
+    private final int maxLength;
+    private final String[] iin;
+    private final int[] spacing;
 
     CardNumberType(String name, int minLength, int maxLength, int[] spacing, String... iin) {
         this.name = name;
         this.minLength = minLength;
         this.maxLength = maxLength;
-        this.iin = iin;
-        if (this.iin == null) {
-            this.iin = new String[0];
-        }
+        this.iin = iin == null ? new String[0] : iin;
         this.spacing = spacing;
     }
 
@@ -101,7 +98,7 @@ public enum CardNumberType {
         for (CardNumberType type : CardNumberType.values()) {
             if (UNKNOWN.equals(type)) return type;
             if (l >= type.minLength && l <= type.maxLength) {
-                if (Stream.of(type.iin).anyMatch(i -> cardNumber.startsWith(i))) return type;
+                if (Stream.of(type.iin).anyMatch(cardNumber::startsWith)) return type;
             }
         }
         return UNKNOWN;

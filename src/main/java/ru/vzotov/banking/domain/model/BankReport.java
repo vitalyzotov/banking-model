@@ -1,6 +1,6 @@
 package ru.vzotov.banking.domain.model;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 
 import java.util.List;
@@ -9,17 +9,10 @@ import java.util.Objects;
 /**
  * Банковский отчет
  */
-public class BankReport implements ValueObject<BankReport> {
+public record BankReport(List<Operation> operations) implements ValueObject<BankReport> {
 
-    private List<Operation> operations;
-
-    public BankReport(List<Operation> operations) {
+    public BankReport {
         Validate.notNull(operations);
-        this.operations = operations;
-    }
-
-    public List<Operation> operations() {
-        return operations;
     }
 
     @Override
@@ -35,8 +28,4 @@ public class BankReport implements ValueObject<BankReport> {
         return sameValueAs(that);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(operations);
-    }
 }

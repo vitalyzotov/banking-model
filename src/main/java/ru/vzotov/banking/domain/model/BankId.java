@@ -1,6 +1,6 @@
 package ru.vzotov.banking.domain.model;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 
 import java.util.Objects;
@@ -77,7 +77,7 @@ public class BankId implements ValueObject<BankId> {
 
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     protected BankId() {

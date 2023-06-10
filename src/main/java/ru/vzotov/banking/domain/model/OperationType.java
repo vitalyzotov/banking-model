@@ -6,7 +6,7 @@ public enum OperationType implements ValueObject<OperationType> {
     DEPOSIT('+'),
     WITHDRAW('-');
 
-    private char symbol;
+    private final char symbol;
 
     OperationType(char symbol) {
         this.symbol = symbol;

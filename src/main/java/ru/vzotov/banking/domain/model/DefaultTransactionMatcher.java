@@ -24,14 +24,14 @@ public class DefaultTransactionMatcher implements TransactionMatcher {
 
         List<Operation> deposit = operations.stream()
                 .filter(op -> OperationType.DEPOSIT.equals(op.type()))
-                .collect(Collectors.toList());
+                .toList();
 
         // create index of withdraw operations by amount and date
         Map<Money, Map<LocalDate, List<Operation>>> withdraw = operations.stream()
                 .filter(op -> OperationType.WITHDRAW.equals(op.type()))
                 .collect(groupingBy(Operation::amount, groupingBy(Operation::date, Collectors.toList())));
 
-        deposit.stream().forEach(primary -> {
+        for (Operation primary : deposit) {
             final Map<LocalDate, List<Operation>> candidates = Optional.ofNullable(withdraw.get(primary.amount()))
                     .orElse(Collections.emptyMap());
             //Math.abs(DAYS.between(entry.getKey(), op.date())) <= threshold;
@@ -40,7 +40,7 @@ public class DefaultTransactionMatcher implements TransactionMatcher {
                     .map(Map.Entry::getValue)
                     .flatMap(Collection::stream)
                     .sorted(Comparator.comparingLong(operation -> Math.abs(DAYS.between(operation.date(), primary.date()))))
-                    .collect(Collectors.toList());
+                    .toList();
 
             if (secondaries.size() == 1) {
                 result.add(new Transaction(primary.operationId(), secondaries.get(0).operationId()));
@@ -49,7 +49,7 @@ public class DefaultTransactionMatcher implements TransactionMatcher {
                     ambiguous.add(Stream.concat(Stream.of(primary), secondaries.stream()).collect(Collectors.toSet()));
                 }
             }
-        });
+        }
 
         return result;
     }

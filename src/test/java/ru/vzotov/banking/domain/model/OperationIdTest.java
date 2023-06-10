@@ -1,24 +1,22 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.domain.model.Money;
 
 import java.time.LocalDate;
 import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class OperationIdTest {
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
-            new OperationId(null);
-        })).as("Should not accept null arguments").isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new OperationId(null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
-        assertThat(catchThrowable(() -> {
-            new OperationId(null, null, null, null, null);
-        })).as("Should not accept null arguments").isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new OperationId(null, null, null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
     }
 
     @Test

@@ -1,17 +1,16 @@
 package ru.vzotov.banking.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class TransactionReferenceTest {
 
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
-            new TransactionReference(null);
-        })).as("Should not accept null arguments").isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new TransactionReference(null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
     }
 
     @Test
