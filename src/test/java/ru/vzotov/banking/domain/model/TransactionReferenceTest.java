@@ -9,9 +9,8 @@ public class TransactionReferenceTest {
 
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new TransactionReference(null);
-        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new TransactionReference(null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
     }
 
     @Test

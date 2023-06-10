@@ -8,8 +8,8 @@ import java.util.Objects;
 
 /**
  * Account number (20 digits)
- *
- * https://www.banki.ru/blog/BAY/8904.php
+ * <p>
+ * <a href="https://www.banki.ru/blog/BAY/8904.php">https://www.banki.ru/blog/BAY/8904.php</a>
  * <p>
  * Номер счета включает двадцать знаков. Например: 40817810570000123456
  * </p>

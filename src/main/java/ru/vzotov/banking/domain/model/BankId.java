@@ -77,7 +77,7 @@ public class BankId implements ValueObject<BankId> {
 
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     protected BankId() {

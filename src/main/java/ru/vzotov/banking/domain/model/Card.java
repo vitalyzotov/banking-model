@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@SuppressWarnings("FieldMayBeFinal")
 @AggregateRoot
 public class Card implements Entity<Card>, Owned {
 

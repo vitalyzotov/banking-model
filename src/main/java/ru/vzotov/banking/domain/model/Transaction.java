@@ -51,13 +51,17 @@ public class Transaction implements Entity<Transaction> {
 
     @Override
     public boolean sameIdentityAs(Transaction other) {
-        return other != null && (new EqualsBuilder()
-                .append(primaryOperation, other.primaryOperation)
-                .append(secondaryOperation, other.secondaryOperation)
-                .isEquals()) || (new EqualsBuilder()
-                .append(primaryOperation, other.secondaryOperation)
-                .append(secondaryOperation, other.primaryOperation)
-                .isEquals());
+        return other != null && (
+                new EqualsBuilder()
+                        .append(primaryOperation, other.primaryOperation)
+                        .append(secondaryOperation, other.secondaryOperation)
+                        .isEquals()
+                        ||
+                        new EqualsBuilder()
+                                .append(primaryOperation, other.secondaryOperation)
+                                .append(secondaryOperation, other.primaryOperation)
+                                .isEquals()
+        );
     }
 
     @Override

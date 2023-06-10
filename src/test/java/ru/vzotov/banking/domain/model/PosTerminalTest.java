@@ -9,24 +9,19 @@ public class PosTerminalTest {
 
     @Test
     public void testCountry() {
-        assertThatThrownBy(() -> {
-            new Country("KRASNODAR");
-        }).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new Country("KRASNODAR")).isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new PosTerminal(null, null, null);
-        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new PosTerminal(null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
-        assertThatThrownBy(() -> {
-            new PosTerminal(null, null, null, null);
-        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new PosTerminal(null, null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
-        assertThatThrownBy(() -> {
-            new PosTerminal(null, null, null, null, null);
-        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new PosTerminal(null, null, null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
         //allow some null arguments
         new PosTerminal(new PosTerminalId("11276718"), new Country("RUS"), null, null, new Merchant("MAGNIT MM ANT"));

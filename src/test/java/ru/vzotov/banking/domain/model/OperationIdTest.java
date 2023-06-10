@@ -12,13 +12,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class OperationIdTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new OperationId(null);
-        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new OperationId(null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
 
-        assertThatThrownBy(() -> {
-            new OperationId(null, null, null, null, null);
-        }).as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new OperationId(null, null, null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(NullPointerException.class);
     }
 
     @Test

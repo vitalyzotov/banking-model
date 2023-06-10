@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * IIN https://github.com/iannuttall/binlist-data
+ * IIN <a href="https://github.com/iannuttall/binlist-data">https://github.com/iannuttall/binlist-data</a>
  * <p>
  * Visa (incl. VPay)	13-19	4
  * #### #### #### #### (4-4-4-4)

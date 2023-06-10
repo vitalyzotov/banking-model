@@ -47,20 +47,19 @@ public class SimpleTransactionMatcher implements TransactionMatcher {
             idx.put(op.amount(), idx2);
         });
 
-        idx.forEach((amount, idx2) -> {
-            idx2.forEach((date, set) -> {
-                if (set.size() == 2) {
-                    Iterator<Operation> iterator = set.iterator();
-                    Operation primary = iterator.next();
-                    Operation secondary = iterator.next();
-                    if (!primary.account().equals(secondary.account())) {
-                        result.add(new Transaction(primary.operationId(), secondary.operationId()));
+        idx.forEach((amount, idx2) ->
+                idx2.forEach((date, set) -> {
+                    if (set.size() == 2) {
+                        Iterator<Operation> iterator = set.iterator();
+                        Operation primary = iterator.next();
+                        Operation secondary = iterator.next();
+                        if (!primary.account().equals(secondary.account())) {
+                            result.add(new Transaction(primary.operationId(), secondary.operationId()));
+                        }
+                    } else if (ambiguous != null && set.size() > 2) {
+                        ambiguous.add(set);
                     }
-                } else if (ambiguous != null && set.size() > 2) {
-                    ambiguous.add(set);
-                }
-            });
-        });
+                }));
 
         return result;
     }

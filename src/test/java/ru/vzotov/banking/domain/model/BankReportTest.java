@@ -10,9 +10,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class BankReportTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new BankReport(null);
-        }).as("Should not accept null arguments").isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new BankReport(null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
         BankReport address = new BankReport(Collections.emptyList());
         assertThat(address).extracting(BankReport::operations)

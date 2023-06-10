@@ -5,7 +5,7 @@ import ru.vzotov.domain.model.Money;
 
 import java.time.LocalDate;
 
-public interface BankRecord<T extends BankRecord> extends Entity<T> {
+public interface BankRecord<T extends BankRecord<T>> extends Entity<T> {
     AccountNumber account();
     String description();
     OperationType type();
